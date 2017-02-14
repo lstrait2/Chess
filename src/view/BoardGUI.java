@@ -69,6 +69,7 @@ public class BoardGUI extends JFrame {
 		if (tile.getOccupant() != null) {
 			ImageIcon pieceImage = getPieceImage(tile.getOccupant());
 			button = new JButton(pieceImage);
+			button.setBackground(tileGUI.getBackground());
 		} else {
 			button = new JButton("");
 			button.setBackground(tileGUI.getBackground());
@@ -106,7 +107,7 @@ public class BoardGUI extends JFrame {
 	 */
 	public static void main(String[] args) {
 		// create the board GUI
-		ChessGame chessGame = new ChessGame(9,9,true);
+		ChessGame chessGame = new ChessGame(8,8,false);
 		Board board = chessGame.getBoard();
 		BoardGUI boardGUI = new BoardGUI(board);
 	}
