@@ -1,13 +1,14 @@
 package test;
 import static org.junit.Assert.*;
 
-import game.Board;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import org.junit.*;
-import pieces.Pawn;
-import pieces.Rook;
-import player.Color;
+
+import model.game.Board;
+import model.pieces.Pawn;
+import model.pieces.Rook;
+import model.player.Color;
 
 public class PieceTests {
 	

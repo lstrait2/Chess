@@ -1,7 +1,8 @@
-package game;
+package model.game;
 
-import pieces.Piece;
-import player.Color;
+import model.pieces.Piece;
+import model.player.Color;
+import view.TileGUI;
 
 /**
  * Tile --- Class to represent a single tile on the game board.
@@ -14,6 +15,7 @@ public class Tile {
 	private int file; // the file (x-coord) of the tile
 	private Piece occupant; // the piece sitting on this tile
 	private Color color; // the color of the tile
+	private TileGUI tileGUI; // the tileGUI that corresponds to this tile
 	
 	/**
 	 * Constructor.
@@ -67,6 +69,20 @@ public class Tile {
 	 */
 	public void setOccupant(Piece piece) {
 		this.occupant = piece;
+	}
+	/**
+	 * Getter.
+	 */
+	public TileGUI getTileGUI() {
+		return this.tileGUI;
+	}
+	
+	/**
+	 * Setter.
+	 * @param tileGUI the tileGUI for this tile
+	 */
+	public void setTileGUI(TileGUI tileGUI) {
+		this.tileGUI = tileGUI;
 	}
 	/**
 	 * Check if the tile does not contain a piece.

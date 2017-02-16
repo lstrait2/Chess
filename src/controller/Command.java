@@ -1,6 +1,6 @@
 package controller;
 
 public interface Command {
-	public void execute();
+	public int execute();
 	public void undo();
 }

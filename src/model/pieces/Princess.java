@@ -1,8 +1,8 @@
-package pieces;
+package model.pieces;
 
-import game.Board;
-import game.Tile;
-import player.Color;
+import model.game.Board;
+import model.game.Tile;
+import model.player.Color;
 
 /**
  * Princess - Class to represent the Princess Piece in Chess (https://en.wikipedia.org/wiki/Princess_(chess))

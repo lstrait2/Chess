@@ -1,8 +1,8 @@
-package pieces;
+package model.pieces;
 
-import game.Board;
-import game.Tile;
-import player.Color;
+import model.game.Board;
+import model.game.Tile;
+import model.player.Color;
 
 /**
  * Pawn --- Class to represent Pawn piece in Chess game.
@@ -11,7 +11,6 @@ import player.Color;
  */
 public class Pawn extends Piece {
 	
-	protected boolean firstMove; // keeps track of whether the pawn has moved yet
 	
 	/**
 	 * Constructor.
@@ -21,17 +20,8 @@ public class Pawn extends Piece {
 	 */
 	public Pawn (Tile tile, Color color) {
 		super(tile,color);
-		this.firstMove = true;
 	}
 	
-	/**
-	 * Getter.
-	 * 
-	 * @return the value of the firstMove flag (true if the pawn hasn't moved before, false otherwise)
-	 */
-	public boolean getFirstMove () {
-		return this.firstMove;
-	}
 	
 	/**
 	 * Checks whether the proposed move is valid. Pawns can move straight forward to an unoccupied space, 

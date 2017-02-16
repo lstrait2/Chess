@@ -1,11 +1,11 @@
 package test;
 import static org.junit.Assert.*;
 
-
-import game.Tile;
 import org.junit.*;
-import pieces.Pawn;
-import player.Color;
+
+import model.game.Tile;
+import model.pieces.Pawn;
+import model.player.Color;
 
 public class TileTests {
 

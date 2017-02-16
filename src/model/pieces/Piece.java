@@ -1,9 +1,10 @@
-package pieces;
+package model.pieces;
 
-import game.Board;
-import game.Tile;
 import java.util.HashSet;
-import player.Color;
+
+import model.game.Board;
+import model.game.Tile;
+import model.player.Color;
 
 /**
  * Piece --- abstract class that implements common functionality of each chess piece
@@ -15,6 +16,7 @@ public abstract class Piece extends Move {
 	protected Tile tile; //  the board Tile the piece is currently on, null if not on board
 	protected final Color color; //  the color of the piece
 	protected HashSet<Tile> validMoves; //  the board Tiles the piece could move to from current location
+	protected boolean firstMove;
 
 	/**
 	 * Constructor.
@@ -27,6 +29,23 @@ public abstract class Piece extends Move {
 		tile.setOccupant(this); // ensure tile points to this piece now
 		this.color = color;
 		this.validMoves = new HashSet<Tile>();
+		this.firstMove = true;
+	}
+	
+	/**
+	 * Getter.
+	 * 
+	 * @return the value of the firstMove flag (true if the pawn hasn't moved before, false otherwise)
+	 */
+	public boolean getFirstMove () {
+		return this.firstMove;
+	}
+	
+	/**
+	 * Setter.
+	 */
+	public void setFirstMove() {
+		this.firstMove = true;
 	}
 	
 	/**

@@ -2,7 +2,8 @@ package test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import game.Board;
+
+import model.game.Board;
 
 public class BoardTests {
 

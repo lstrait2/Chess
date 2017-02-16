@@ -8,14 +8,14 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.Board;
-import game.Tile;
-import pieces.Bishop;
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Piece;
-import pieces.Queen;
-import player.Color;
+import model.game.Board;
+import model.game.Tile;
+import model.pieces.Bishop;
+import model.pieces.Knight;
+import model.pieces.Pawn;
+import model.pieces.Piece;
+import model.pieces.Queen;
+import model.player.Color;
 
 public class KnightTests {
 

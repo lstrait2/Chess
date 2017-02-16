@@ -1,4 +1,4 @@
-package player;
+package model.player;
 
 /**
  * Color --- Enum representing the two players. This will likely be extended to a class with more functionality in later weeks.
