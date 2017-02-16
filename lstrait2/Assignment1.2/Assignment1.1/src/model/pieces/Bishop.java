@@ -1,8 +1,8 @@
-package pieces;
+package model.pieces;
 
-import game.Board;
-import game.Tile;
-import player.Color;
+import model.game.Board;
+import model.game.Tile;
+import model.player.Color;
 
 /**
  * Bishop --- Class to represent Bishop piece in Chess game.

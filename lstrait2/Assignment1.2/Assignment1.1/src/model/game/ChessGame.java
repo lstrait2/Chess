@@ -1,19 +1,17 @@
-package game;
+package model.game;
 
 import java.util.HashSet;
 
-import pieces.BerolinaPawn;
-import pieces.Bishop;
-import pieces.King;
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Piece;
-import pieces.Princess;
-import pieces.Queen;
-import pieces.Rook;
-import player.Color;
-import view.BoardGUI;
-
+import model.pieces.BerolinaPawn;
+import model.pieces.Bishop;
+import model.pieces.King;
+import model.pieces.Knight;
+import model.pieces.Pawn;
+import model.pieces.Piece;
+import model.pieces.Princess;
+import model.pieces.Queen;
+import model.pieces.Rook;
+import model.player.Color;
 /**
  * ChessGame --- Class representing a game of chess.
  * @author Lance
@@ -286,8 +284,8 @@ public class ChessGame {
 	 * @param piece the piece to move.
 	 * @param newTile the tile to move the piece to.
 	 */
-	public void whiteMove(Piece piece, Tile newTile) {
-		playerMove(Color.WHITE, piece, newTile);
+	public int whiteMove(Piece piece, Tile newTile) {
+		return playerMove(Color.WHITE, piece, newTile);
 	}
 	
 	/**
@@ -296,8 +294,8 @@ public class ChessGame {
 	 * @param piece the piece to move.
 	 * @param newTile the tile to move the piece to.
 	 */
-	public void blackMove(Piece piece, Tile newTile) {
-		playerMove(Color.BLACK, piece, newTile);
+	public int blackMove(Piece piece, Tile newTile) {
+		return playerMove(Color.BLACK, piece, newTile);
 	}
 	
 	/**
@@ -307,16 +305,16 @@ public class ChessGame {
 	 * @param piece the piece to move.
 	 * @param newTile the tile to move the piece to.
 	 */
-	public void playerMove(Color color, Piece piece, Tile newTile) {
+	public int playerMove(Color color, Piece piece, Tile newTile) {
 		// it must be color's turn to move
 		if (getPlayerTurn() != color) {
-			System.out.print("Please wait for white to make their move first\n");
-			return;
+			System.out.print("Please wait for other player to make their move first\n");
+			return 1;
 		}
 		// only colors pieces can be moved on this turn.
 		if (piece.getColor() != color) {
 			System.out.print("Please only attempt to move your own pieces\n");
-			return;
+			return 1;
 		}
 		// attempt the move.
 		int ret = piece.move(newTile,getBoard());
@@ -326,10 +324,12 @@ public class ChessGame {
 			// update valid moves for all other pieces (may have been affected by this move)
 			whitePieces.forEach(p->p.updateValidMoves(board));
 			blackPieces.forEach(p->p.updateValidMoves(board));
+			return 0;
 		}
 		else {
 			// move unsuccessful, prompt player to try again
 			System.out.print("Move was illegal, please attempt a valid move\n");
+			return 2;
 		}
 	}
 	
@@ -365,6 +365,22 @@ public class ChessGame {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @return true if white king is in check
+	 */
+	public boolean whiteKingInCheck() {
+		return kingInCheck(whiteKing);
+	}
+	
+	/**
+	 *
+	 * @return true if black king is in check
+	 */
+	public boolean blackKingInCheck() {
+		return kingInCheck(blackKing);
 	}
 	
 	/**

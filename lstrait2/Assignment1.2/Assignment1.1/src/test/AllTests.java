@@ -8,7 +8,7 @@ import org.junit.runners.Suite;
  *
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({BerolinaPawnTests.class, BishopTests.class, BoardTests.class, BoardGUITests.class, ChessGameTests.class, KingTests.class, KnightTests.class, 
+@Suite.SuiteClasses({BerolinaPawnTests.class, BishopTests.class, BoardTests.class, ChessGameTests.class, KingTests.class, KnightTests.class, 
 	PawnTests.class, PieceTests.class, PrincessTests.class, QueenTests.class, RookTests.class, TileTests.class})
 public class AllTests {   
 }  

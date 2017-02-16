@@ -10,11 +10,11 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.Board;
-import game.Tile;
-import pieces.BerolinaPawn;
-import pieces.Piece;
-import player.Color;
+import model.game.Board;
+import model.game.Tile;
+import model.pieces.BerolinaPawn;
+import model.pieces.Piece;
+import model.player.Color;
 
 public class BerolinaPawnTests {
 	Board board;

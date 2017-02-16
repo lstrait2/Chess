@@ -8,12 +8,12 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.Board;
-import game.Tile;
-import pieces.Pawn;
-import pieces.Piece;
-import pieces.Rook;
-import player.Color;
+import model.game.Board;
+import model.game.Tile;
+import model.pieces.Pawn;
+import model.pieces.Piece;
+import model.pieces.Rook;
+import model.player.Color;
 
 public class RookTests {
 
