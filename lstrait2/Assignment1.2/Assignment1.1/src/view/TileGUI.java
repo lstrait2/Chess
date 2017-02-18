@@ -7,10 +7,15 @@ import model.pieces.*;
 
 import java.awt.*;
 
+/**
+ * TileGUI - class to represent GUI for a single board tile
+ * @author Lance
+ *
+ */
 public class TileGUI extends JButton {
 	
-	private Tile tile;
-	private Color originalColor;
+	private Tile tile; // corresponding game tile.
+	private Color originalColor; // color of the board tile (black or white)
 	
 	/**
 	 * Constructor.
@@ -57,6 +62,7 @@ public class TileGUI extends JButton {
  	 */
 	public void updateTileImage() {
 		ImageIcon pieceImage = null;
+		// if there is a piece on this tile add its Image
 		if (tile.getOccupant() != null) {
 			pieceImage = getPieceImage(tile.getOccupant());
 		}
