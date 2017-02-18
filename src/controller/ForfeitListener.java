@@ -5,6 +5,11 @@ import java.awt.event.ActionListener;
 
 import view.TileGUI;
 
+/**
+ * ForfeitListener - listen for forfeit actions by players.
+ * @author Lance
+ *
+ */
 public class ForfeitListener implements ActionListener {
 	ChessController chessController;
 	

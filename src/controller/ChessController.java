@@ -16,14 +16,14 @@ public class ChessController {
 	
 	private ChessGame chessGame;
 	private BoardGUI boardGUI;
-	private ForfeitListener forfeitListener;
-	private PieceSelectionListener pieceListener;
-	private RestartListener restartListener;
-	private UndoListener undoListener;
+	private ForfeitListener forfeitListener; // listener to check for player forfeits
+	private PieceSelectionListener pieceListener; // listener to check for attempted moves
+	private RestartListener restartListener; // listener to check for player restarts
+	private UndoListener undoListener; // listener to check for player undos
 	private Player whitePlayer;
 	private Player blackPlayer;
-	private boolean isCustomGame;
-	private MoveCommandManager moveManager;
+	private boolean isCustomGame; // true if players want a custom game.
+	private MoveCommandManager moveManager; // manager to allow for move execution and undo.
 	
 	/**
 	 * Constructor.
@@ -47,8 +47,34 @@ public class ChessController {
 		this.moveManager = new MoveCommandManager();
 	}
 	
-	//TODO: check player making move is own turn, need Player class
-	//TODO: clean this and ChessGame file up a lot!
+	/**
+	 * Getter.
+	 */
+	public ChessGame getChessGame() {
+		return this.chessGame;
+	}
+	
+	/**
+	 * Getter.
+	 */
+	public Player getWhitePlayer() {
+		return this.whitePlayer;
+	}
+	
+	/**
+	 * Getter.
+	 */
+	public Player getBlackPlayer() {
+		return this.blackPlayer;
+	}
+	
+	/**
+	 * Getter.
+	 */
+	public MoveCommandManager getMoveCommandManager() {
+		return this.moveManager;
+	}
+	
 	/**
 	 * Handle a move received from the players passed on by PieceSelectionListener.
 	 * @param oldTileGUI the tile to move a piece from
@@ -60,32 +86,8 @@ public class ChessController {
 		int ret = moveManager.executeCommand(move);
 		// check that move was successful. Display error output if wasn't
 		if (ret == 0) {
-			//TODO: refactor these to "checkConditions method"
-			if (chessGame.playerWins(Color.BLACK)) {
-				JOptionPane.showMessageDialog(boardGUI, "Checkmate! Black Player has won the game.");
-				blackPlayer.incrementWins();
+			if (winConditionPresent()) {
 				restartGame();
-				return;
-			}
-			if (chessGame.playerWins(Color.WHITE)) {
-				JOptionPane.showMessageDialog(boardGUI, "Checkmate! White Player has won the game.");
-				whitePlayer.incrementWins();
-				restartGame();
-				return;
-			}
-			if (chessGame.isStalemate()) {
-				JOptionPane.showMessageDialog(boardGUI, "Stalemate. Neither play wins.");
-				restartGame();
-				return;
-			}
-
-			// display warning if move put other king in check
-			if (chessGame.blackKingInCheck()) {
-				JOptionPane.showMessageDialog(boardGUI, "Black king is now in check!");
-			}
-			
-			if (chessGame.whiteKingInCheck()) {
-				JOptionPane.showMessageDialog(boardGUI, "White king is now in check!");
 			}
 		}
 		// tried to move out of turn
@@ -99,20 +101,53 @@ public class ChessController {
 	}
 	
 	/**
+	 * Check win (and check) conditions and handle them if present.
+	 */
+	public boolean winConditionPresent() {
+		// check if either player wins or stalemate exists.
+		if (chessGame.playerWins(Color.BLACK)) {
+			JOptionPane.showMessageDialog(boardGUI, "Checkmate! Black Player has won the game.");
+			blackPlayer.incrementWins();
+			return true;
+		}
+		if (chessGame.playerWins(Color.WHITE)) {
+			JOptionPane.showMessageDialog(boardGUI, "Checkmate! White Player has won the game.");
+			whitePlayer.incrementWins();
+			return true;
+		}
+		if (chessGame.isStalemate()) {
+			JOptionPane.showMessageDialog(boardGUI, "Stalemate. Neither play wins.");
+			return true;
+		}
+
+		// display warning if move put other king in check, even though no win conditions
+		if (chessGame.blackKingInCheck()) {
+			JOptionPane.showMessageDialog(boardGUI, "Black king is now in check!");
+		}
+
+		if (chessGame.whiteKingInCheck()) {
+			JOptionPane.showMessageDialog(boardGUI, "White king is now in check!");
+		}
+		return false;
+	}
+	
+	/**
 	 * Restart the game and start a new one.
 	 */
 	public void restartGame() {
 		this.boardGUI.setVisible(false);
 		this.boardGUI.dispose();
+		// generate a new instance of chess game.
 		if (isCustomGame) {
 			this.chessGame = new ChessGame(9,9,true); 
 		}
 		else {
 			this.chessGame = new ChessGame(8,8,false);
 		}
+		// generate a fresh GUI
 		this.boardGUI = new BoardGUI(chessGame.getBoard(), this.pieceListener, this.restartListener, this.forfeitListener, this.undoListener);
 		this.boardGUI.updatePlayerWins(whitePlayer.getWins(), blackPlayer.getWins());
-		//TODO: reset CommandManager.
+		this.moveManager = new MoveCommandManager();
 	}
 	
 	/**
@@ -131,6 +166,7 @@ public class ChessController {
 	 * @param p the player who chose to forfeit
 	 */
 	public void forfeitGame(Player p) {
+		// whichever player did not forfeit receives a win
 		if (p != whitePlayer) {
 			whitePlayer.incrementWins();
 		}
@@ -140,6 +176,9 @@ public class ChessController {
 		restartGame();
 	}
 	
+	/**
+	 * Prompt the MoveCommand manager to try to undo last move.
+	 */
 	public void undoMove() {
 		if (moveManager.isUndoAvailable()) {
 			moveManager.undo();

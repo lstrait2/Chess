@@ -342,7 +342,7 @@ public class ChessGameTests {
 		// move should not have occurred
 		assertNotEquals(newTile.getOccupant(), blackPawn);
 		// error message should been printed
-		assertEquals("Please wait for white to make their move first\n", outContent.toString());
+		assertEquals("Please wait for other player to make their move first\n", outContent.toString());
 		// it should still be white's turn
 		assertEquals(Color.WHITE, chessGame.getPlayerTurn());
 	}
